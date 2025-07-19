@@ -46,7 +46,6 @@ Exemplos de uso:
     
     args = parser.parse_args()
     
-    # Determina se o input é um arquivo ou código direto
     input_path = Path(args.input)
     if input_path.exists() and input_path.is_file():
         try:
@@ -64,11 +63,9 @@ Exemplos de uso:
     print("-" * 50)
     
     try:
-        # Analisa o código
         lexer = Lexer(code)
         tokens = lexer.tokenize(skip_whitespace=not args.verbose, skip_comments=not args.verbose)
         
-        # Prepara a saída
         output_lines = []
         
         if args.format == 'simple':
@@ -101,13 +98,11 @@ Exemplos de uso:
                     })
             output_lines.append(json.dumps(token_data, indent=2, ensure_ascii=False))
         
-        # Mostra estatísticas
         non_eof_tokens = [t for t in tokens if t.type.value != 'EOF']
         output_lines.append(f"\nEstatísticas:")
         output_lines.append(f"  Total de tokens: {len(non_eof_tokens)}")
         output_lines.append(f"  Linhas processadas: {max(t.line for t in tokens) if tokens else 0}")
         
-        # Saída
         result = '\n'.join(output_lines)
         
         if args.output:

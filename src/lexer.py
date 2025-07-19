@@ -6,26 +6,22 @@ from typing import List, Optional, Iterator
 
 class TokenType(Enum):
     """Tipos de tokens suportados pelo analisador léxico"""
-    # Tipos de dados
     INT = "INT"
     FLOAT = "FLOAT"
     STRING = "STRING"
     BOOL = "BOOL"
     
-    # Identificadores e literais
     IDENTIFIER = "IDENTIFIER"
     NUMBER = "NUMBER"
     STRING_LITERAL = "STRING_LITERAL"
     BOOLEAN_LITERAL = "BOOLEAN_LITERAL"
     
-    # Operadores aritméticos
     PLUS = "PLUS"
     MINUS = "MINUS"
     MULTIPLY = "MULTIPLY"
     DIVIDE = "DIVIDE"
     MODULO = "MODULO"
     
-    # Operadores de comparação
     EQUAL = "EQUAL"
     NOT_EQUAL = "NOT_EQUAL"
     LESS_THAN = "LESS_THAN"
@@ -33,15 +29,12 @@ class TokenType(Enum):
     LESS_EQUAL = "LESS_EQUAL"
     GREATER_EQUAL = "GREATER_EQUAL"
     
-    # Operadores de atribuição
     ASSIGN = "ASSIGN"
     
-    # Operadores lógicos
     AND = "AND"
     OR = "OR"
     NOT = "NOT"
     
-    # Palavras-chave de controle
     IF = "IF"
     ELSE = "ELSE"
     WHILE = "WHILE"
@@ -49,7 +42,6 @@ class TokenType(Enum):
     FUNCTION = "FUNCTION"
     RETURN = "RETURN"
     
-    # Delimitadores
     SEMICOLON = "SEMICOLON"
     COMMA = "COMMA"
     LEFT_PAREN = "LEFT_PAREN"
@@ -59,7 +51,6 @@ class TokenType(Enum):
     LEFT_BRACKET = "LEFT_BRACKET"
     RIGHT_BRACKET = "RIGHT_BRACKET"
     
-    # Especiais
     NEWLINE = "NEWLINE"
     EOF = "EOF"
     WHITESPACE = "WHITESPACE"
@@ -92,7 +83,6 @@ class LexerError(Exception):
 class Lexer:
     """Analisador léxico para uma linguagem simples"""
     
-    # Palavras-chave da linguagem
     KEYWORDS = {
         'int': TokenType.INT,
         'float': TokenType.FLOAT,
@@ -111,21 +101,16 @@ class Lexer:
         'not': TokenType.NOT,
     }
     
-    # Padrões de expressões regulares para diferentes tipos de tokens
     TOKEN_PATTERNS = [
-        # Comentários (devem vir antes de operadores)
         (r'//.*', TokenType.COMMENT),
         (r'/\*[\s\S]*?\*/', TokenType.COMMENT),
         
-        # Strings
         (r'"([^"\\]|\\.)*"', TokenType.STRING_LITERAL),
         (r"'([^'\\]|\\.)*'", TokenType.STRING_LITERAL),
         
-        # Números (decimais e inteiros)
         (r'\d+\.\d+', TokenType.NUMBER),
         (r'\d+', TokenType.NUMBER),
         
-        # Operadores de comparação (devem vir antes dos operadores simples)
         (r'==', TokenType.EQUAL),
         (r'!=', TokenType.NOT_EQUAL),
         (r'<=', TokenType.LESS_EQUAL),
@@ -133,7 +118,6 @@ class Lexer:
         (r'<', TokenType.LESS_THAN),
         (r'>', TokenType.GREATER_THAN),
         
-        # Operadores aritméticos e de atribuição
         (r'=', TokenType.ASSIGN),
         (r'\+', TokenType.PLUS),
         (r'-', TokenType.MINUS),
@@ -141,7 +125,6 @@ class Lexer:
         (r'/', TokenType.DIVIDE),
         (r'%', TokenType.MODULO),
         
-        # Delimitadores
         (r';', TokenType.SEMICOLON),
         (r',', TokenType.COMMA),
         (r'\(', TokenType.LEFT_PAREN),
@@ -151,10 +134,8 @@ class Lexer:
         (r'\[', TokenType.LEFT_BRACKET),
         (r'\]', TokenType.RIGHT_BRACKET),
         
-        # Identificadores (devem vir após as palavras-chave)
         (r'[a-zA-Z_][a-zA-Z0-9_]*', TokenType.IDENTIFIER),
         
-        # Whitespace
         (r'[ \t]+', TokenType.WHITESPACE),
         (r'\n', TokenType.NEWLINE),
     ]
@@ -189,21 +170,17 @@ class Lexer:
                 if match:
                     value = match.group(0)
                     
-                    # Verifica se é uma palavra-chave
                     if token_type == TokenType.IDENTIFIER and value in self.KEYWORDS:
                         token_type = self.KEYWORDS[value]
                     
                     token = Token(token_type, value, self.line, self.column)
                     
-                    # Adiciona o token apenas se não for para pular
                     if not (skip_whitespace and token_type == TokenType.WHITESPACE) and \
                        not (skip_comments and token_type == TokenType.COMMENT):
                         self.tokens.append(token)
                     
-                    # Atualiza posição
                     self.position = match.end()
                     
-                    # Atualiza linha e coluna
                     if token_type == TokenType.NEWLINE:
                         self.line += 1
                         self.column = 1
@@ -217,7 +194,6 @@ class Lexer:
                 char = self.text[self.position]
                 raise LexerError(f"Caractere inesperado: '{char}'", self.line, self.column)
         
-        # Adiciona token EOF no final
         self.tokens.append(Token(TokenType.EOF, "", self.line, self.column))
         return self.tokens
     
@@ -239,7 +215,6 @@ def analyze_code(code: str, verbose: bool = False) -> List[Token]:
 
 
 if __name__ == "__main__":
-    # Exemplo de uso
     test_code = "int x = 10 + 5;"
     
     try:

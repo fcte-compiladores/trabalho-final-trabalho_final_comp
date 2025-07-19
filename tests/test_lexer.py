@@ -2,7 +2,6 @@ import unittest
 import sys
 import os
 
-# Adiciona o diretório pai ao path para importar o módulo src
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.lexer import Lexer, LexerError, TokenType, Token
@@ -156,8 +155,7 @@ class TestLexer(unittest.TestCase):
         lexer = Lexer(code)
         tokens = lexer.tokenize(skip_whitespace=False)
         
-        # Verifica posições específicas
-        int_token = tokens[0]  # "int"
+        int_token = tokens[0]  
         self.assertEqual(int_token.line, 1)
         self.assertEqual(int_token.column, 1)
         
@@ -179,10 +177,8 @@ class TestLexer(unittest.TestCase):
         lexer = Lexer(code)
         tokens = lexer.tokenize()
         
-        # Verifica que não há erros e que temos tokens suficientes
         self.assertGreater(len(tokens), 20)
         
-        # Verifica alguns tokens específicos
         function_tokens = [t for t in tokens if t.type == TokenType.FUNCTION]
         self.assertEqual(len(function_tokens), 1)
         
@@ -190,11 +186,11 @@ class TestLexer(unittest.TestCase):
         self.assertEqual(len(if_tokens), 1)
         
         return_tokens = [t for t in tokens if t.type == TokenType.RETURN]
-        self.assertEqual(len(return_tokens), 2)  # Corrigido de 3 para 2
+        self.assertEqual(len(return_tokens), 2)  
     
     def test_invalid_character(self):
         """Testa tratamento de caracteres inválidos"""
-        code = "int x = @;"  # @ não é um caractere válido
+        code = "int x = @;"  
         lexer = Lexer(code)
         
         with self.assertRaises(LexerError) as context:
@@ -208,7 +204,7 @@ class TestLexer(unittest.TestCase):
         lexer = Lexer(code)
         tokens = lexer.tokenize()
         
-        self.assertEqual(len(tokens), 1)  # Apenas EOF
+        self.assertEqual(len(tokens), 1)  
         self.assertEqual(tokens[0].type, TokenType.EOF)
     
     def test_whitespace_only(self):
@@ -217,8 +213,7 @@ class TestLexer(unittest.TestCase):
         lexer = Lexer(code)
         tokens = lexer.tokenize()
         
-        # Espera apenas NEWLINE e EOF quando skip_whitespace=True
-        self.assertEqual(len(tokens), 2)  # NEWLINE e EOF
+        self.assertEqual(len(tokens), 2) 
         self.assertEqual(tokens[0].type, TokenType.NEWLINE)
         self.assertEqual(tokens[1].type, TokenType.EOF)
     
@@ -266,5 +261,4 @@ class TestToken(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    # Executa os testes
     unittest.main(verbosity=2)

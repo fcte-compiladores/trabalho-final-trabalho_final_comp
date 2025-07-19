@@ -2,10 +2,10 @@
 
 ## Integrantes
 
-- Nome do Integrante 1 - Matrícula: XXXXXXX - Turma: XX
-- Nome do Integrante 2 - Matrícula: XXXXXXX - Turma: XX
-- Nome do Integrante 3 - Matrícula: XXXXXXX - Turma: XX
-- Nome do Integrante 4 - Matrícula: XXXXXXX - Turma: XX
+- Daniel Ferreira Nunes - Matrícula: 211061565 
+- Nicollas Gabriel Oliveira Sousa - Matrícula: 211062802
+- Felipe Guimaraes Fernandes - Matrícula: 211041132
+- Paulo Henrique Virgilio Cerqueira  - Matrícula: 211030630
 
 ## Introdução
 
