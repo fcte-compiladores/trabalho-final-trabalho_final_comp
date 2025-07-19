@@ -1,0 +1,2 @@
+// Hello World - Exemplo básico
+string mensagem = "Hello, World!";

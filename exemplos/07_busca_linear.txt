@@ -1,0 +1,16 @@
+// Exemplo de estrutura de dados simples (array simulado)
+int lista[10];
+int tamanho = 10;
+int indice = 0;
+
+// Busca linear
+function buscar(int valor) {
+    int i = 0;
+    while (i < tamanho) {
+        if (lista[i] == valor) {
+            return i;
+        }
+        i = i + 1;
+    }
+    return -1;
+}

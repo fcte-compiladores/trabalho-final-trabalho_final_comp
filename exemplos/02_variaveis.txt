@@ -1,0 +1,5 @@
+// Declarações de variáveis simples
+int idade = 25;
+float altura = 1.75;
+string nome = "João";
+bool ativo = true;

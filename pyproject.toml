@@ -1,0 +1,17 @@
+[project]
+name = "lexer-analyzer"
+version = "1.0.0"
+description = "Analisador Léxico para uma linguagem simples"
+authors = [
+    {name = "Equipe do Projeto", email = "exemplo@email.com"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
+
+[project.scripts]
+lexer = "src.main:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

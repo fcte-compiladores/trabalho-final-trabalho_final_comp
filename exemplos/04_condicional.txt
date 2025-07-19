@@ -1,0 +1,8 @@
+// Estrutura condicional
+int numero = 10;
+
+if (numero > 0) {
+    string resultado = "positivo";
+} else {
+    string resultado = "negativo ou zero";
+}
